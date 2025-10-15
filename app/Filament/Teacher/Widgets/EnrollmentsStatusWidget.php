@@ -25,6 +25,7 @@ class EnrollmentsStatusWidget extends BaseWidget
             ->heading(function () {
                 $state = data_get($this->getTableFilterState('state'), 'value') ?? 'overdue';
                 return static::$heading . ' - ' . collect([
+                    'not_started' => 'Не начатые',
                     'incomplete' => 'Не завершенные',
                     'overdue' => 'Просроченные',
                 ])->get($state);
@@ -40,6 +41,8 @@ class EnrollmentsStatusWidget extends BaseWidget
                     ->searchable(),
                 Tables\Columns\TextColumn::make('course.name')
                     ->label('Курс')
+                    ->limit(50)
+                    ->tooltip(fn($state): string => $state)
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('enrollment_date')
@@ -64,6 +67,7 @@ class EnrollmentsStatusWidget extends BaseWidget
                 SelectFilter::make('state')
                     ->label('Состояние')
                     ->options([
+                        'not_started' => 'Не начатые',
                         'incomplete' => 'Не завершенные',
                         'overdue' => 'Просроченные',
                     ])
@@ -72,6 +76,10 @@ class EnrollmentsStatusWidget extends BaseWidget
                         $today = Carbon::today();
                         $value = $data['value'] ?? 'incomplete';
                         return match ($value) {
+                            'not_started' => $query
+                                ->where('is_steps_created', true)
+                                ->whereHas('steps')
+                                ->whereDoesntHave('completedSteps'),
                             'overdue' => $query
                                 ->whereDate('completion_deadline', '<', $today)
                                 ->where(function (Builder $q) {

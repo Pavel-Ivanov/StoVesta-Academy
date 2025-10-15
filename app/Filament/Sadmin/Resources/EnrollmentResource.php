@@ -157,14 +157,17 @@ class EnrollmentResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('course.name')
                     ->label('Курс')
+                    ->limit(50)
+                    ->tooltip(fn($state): string => $state)
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Студент')
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('enrollment_date')
                     ->label('Дата назначения')
-                    ->dateTime('d.m.Y')
+                    ->date('d.m.Y')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('completion_deadline')
                     ->label('Дата окончания')
