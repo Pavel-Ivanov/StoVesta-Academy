@@ -5,6 +5,7 @@ namespace App\Filament\Sadmin\Resources;
 use App\Filament\Sadmin\Resources\QuizResource\Pages;
 use App\Filament\Sadmin\Resources\QuizResource\RelationManagers;
 use App\Models\Quiz;
+use App\Models\Course;
 use Filament\Forms;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Form;
@@ -218,6 +219,20 @@ class QuizResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
+                SelectFilter::make('course_id')
+                    ->label('Курс')
+                    ->options(fn() => \App\Models\Course::query()->pluck('name', 'id')->all())
+                    ->searchable()
+                    ->preload()
+                    ->query(function (Builder $query, array $data): Builder {
+                        $value = $data['value'] ?? null;
+                        if (!$value) {
+                            return $query;
+                        }
+                        return $query->whereHas('lesson', function (Builder $q) use ($value) {
+                            $q->where('course_id', $value);
+                        });
+                    }),
                 SelectFilter::make('lesson')
                     ->label('Урок')
                     ->relationship('lesson', 'name')
