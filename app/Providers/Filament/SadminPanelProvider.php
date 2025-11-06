@@ -62,6 +62,7 @@ class SadminPanelProvider extends PanelProvider
             ])
             ->navigationGroups([
                 'Академия',
+                'Википедия',
                 'Компания',
                 'Справочники',
                 'Администрирование',
