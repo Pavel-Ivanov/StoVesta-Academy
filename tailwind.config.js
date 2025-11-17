@@ -13,7 +13,6 @@ export default {
         './resources/views/**/*.blade.php',
         './resources/views/filament/**/*.blade.php',
         './resources/views/livewire/**/*.blade.php',
-        // './vendor/awcodes/matinee/resources/views/**/*.blade.php',
     ],
 
     theme: {

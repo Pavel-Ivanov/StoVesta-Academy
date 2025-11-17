@@ -6,9 +6,6 @@ use AmidEsfahani\FilamentTinyEditor\TinyEditor;
 use App\Filament\Sadmin\Resources\LessonResource\Pages;
 use App\Filament\Sadmin\Resources\LessonResource\RelationManagers;
 use App\Models\Lesson;
-//use App\Models\Question;
-//use App\Models\QuestionOption;
-//use Awcodes\Matinee\Matinee;
 use Filament\Forms;
 //use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
@@ -19,13 +16,7 @@ use Filament\Tables;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use FilamentTiptapEditor\Enums\TiptapOutput;
-use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Contracts\Support\Htmlable;
-
-//use Hugomyb\FilamentMediaAction\Forms\Components\Actions\MediaAction;
-//use Illuminate\Database\Eloquent\Builder;
-//use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class LessonResource extends Resource
 {
@@ -96,16 +87,6 @@ class LessonResource extends Resource
                                     ->panelLayout('grid')
                                     ->reorderable()
                                     ->uploadingMessage('Видео загружается...')
-//                                    ->orientImagesFromExif(false)
-//                                    ->imagePreviewHeight('250')
-//                                    ->loadingIndicatorPosition('left')
-//                                    ->panelAspectRatio('2:1')
-//                                    ->panelLayout('integrated')
-//                                    ->removeUploadedFileButtonPosition('right')
-//                                    ->uploadButtonPosition('left')
-//                                    ->uploadProgressIndicatorPosition('left'),
-/*                                Matinee::make('video')
-                                    ->showPreview(),*/
                             ]),
                         Tabs\Tab::make('Тесты')
                             ->schema([
@@ -122,34 +103,6 @@ class LessonResource extends Resource
                                             ->columnSpanFull(),
                                         Forms\Components\Checkbox::make('is_published')
                                             ->label('Опубликован'),
-
-                                        /*                                        Forms\Components\Textarea::make('question_text')
-                                                                                    ->label('Текст вопроса')
-                                                                                    ->required()
-                                                                                    ->columnSpanFull(),
-                                                                                Forms\Components\Repeater::make('questionOptions')
-                                                                                    ->required()
-                                                                                    ->relationship()
-                                                                                    ->columnSpanFull()
-                                                                                    ->schema([
-                                                                                        Forms\Components\TextInput::make('option')
-                                                                                            ->label('Ответ')
-                                                                                            ->required()
-                                                                                            ->hiddenLabel(),
-                                                                                        Forms\Components\Checkbox::make('correct')
-                                                                                            ->label('Правильный ответ'),
-                                                                                    ])
-                                                                                    ->columns()
-                                                                                    ->addActionLabel('Добавить ответ')
-                                                                                    ->reorderable(true)
-                                                                                    ->reorderableWithButtons()
-                                                                                    ->cloneable(),
-                                                                                Forms\Components\Textarea::make('hint')
-                                                                                    ->label('Объяснение правильного ответа')
-                                                                                    ->columnSpanFull(),
-                                                                                Forms\Components\TextInput::make('more_info_link')
-                                                                                    ->label('Ссылка на дополнительную информацию')
-                                                                                    ->columnSpanFull(),*/
                                     ])
                                         ->itemLabel(function (array $state): ?string {
                                             if (empty($state['name'])) {
@@ -160,7 +113,6 @@ class LessonResource extends Resource
                                         ->columns()
                                     ->collapsible()
                                     ->collapsed()
-    //                                ->addable(false)
                                     ->addActionLabel('Добавить тест')
                                     ->defaultItems(0),
                             ]),
