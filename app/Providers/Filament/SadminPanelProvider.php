@@ -21,7 +21,6 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Rmsramos\Activitylog\ActivitylogPlugin;
 use ShuvroRoy\FilamentSpatieLaravelBackup\FilamentSpatieLaravelBackupPlugin;
 use BezhanSalleh\PanelSwitch\PanelSwitch;
 
@@ -97,18 +96,13 @@ class SadminPanelProvider extends PanelProvider
                     ->usingPage(Backups::class)
                     ->usingPolingInterval('60s')
                     ->timeout(120),
-/*                GlobalSearchModalPlugin::make()
+                GlobalSearchModalPlugin::make()
 //                    ->scopes(LessonResource::class)
                     ->highlightQueryStyles([
                         'background-color' => 'yellow',
                         'font-weight' => 'bold',
-                    ]),*/
-                ActivitylogPlugin::make()
-                    ->navigationGroup('Администрирование')
-                    ->authorize(
-                        fn () => auth()->user()->hasRole(['Superadmin', 'Администратор'])
-                    )
-                    ->translateLogKey(fn($label) => __("events.".$label)),
+                    ])
+                ,
             ])
 //            ->viteTheme('resources/css/filament/sadmin/theme.css')
 //            ->viteTheme('"C:\Herd\b0lms\resources\css\filament\sadmin\theme.css"')

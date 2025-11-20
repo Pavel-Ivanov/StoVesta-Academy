@@ -16,3 +16,17 @@ Progress Tracking: Personal dashboards for employees and detailed analytical rep
 User and Role Management: Configuration of different access levels for administrators, instructors, and staff members.
 
 Forums and Discussions: Tools for experience sharing and collaborative problem-solving on work-related issues.
+
+Git — правила слияния веток (merge)
+Чтобы сократить количество конфликтов при объединении веток, в репозиторий добавлены правила .gitattributes:
+- Автоматическая нормализация концов строк: text=auto eol=lf
+- Файлы блокировок (lock-файлы) — composer.lock, package-lock.json, yarn.lock, pnpm-lock.yaml — сливаются стратегией «ours». Это означает: при конфликте сохраняется версия текущей ветки. После слияния обязательно переустановите зависимости, чтобы пересобрать lock-файл под объединённое состояние:
+  - PHP: composer install
+  - Node: npm install или yarn install / pnpm install
+- .env — merge=ours (конфликты настроек окружения не имеют смысла, каждый разработчик хранит локальные значения)
+- Бинарные файлы помечены как binary (Git не будет пытаться объединять их как текст).
+
+Рекомендации по рабочему процессу
+- Перед началом работы обновляйтесь: git pull --rebase
+- При возникновении конфликтов в lock-файлах просто завершайте слияние, затем выполните установку зависимостей (см. выше) и закоммитьте обновлённый lock-файл.
+- Если конфликт всё же возник в текстовых файлах, используйте привычные инструменты сравнения/разрешения (IDE или git mergetool).

@@ -13,6 +13,7 @@ class Dashboard extends BaseDashboard
 //    protected static string $view = 'filament.intern.pages.dashboard';
     protected ?string $heading = 'Академия';
     protected static ?string $navigationLabel = 'Академия';
+    protected static ?int $navigationSort = 1;
 
     public function getColumns(): int | array
     {

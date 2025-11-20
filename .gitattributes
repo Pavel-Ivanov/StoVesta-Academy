@@ -6,6 +6,28 @@
 *.md diff=markdown
 *.php diff=php
 
+## Prevent typical merge conflicts
+# Prefer keeping current branch's lock files; regenerate after merge
+composer.lock merge=ours
+package-lock.json merge=ours
+yarn.lock merge=ours
+pnpm-lock.yaml merge=ours
+
+# Environment files are developer/machine-specific
+.env merge=ours
+.env.example merge=union
+
+# Treat binary assets as binary (no text merges)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.gz binary
+*.7z binary
+
 /.github export-ignore
 CHANGELOG.md export-ignore
 .styleci.yml export-ignore
